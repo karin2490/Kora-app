@@ -1,41 +1,210 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# ================================
+# .gitignore para Kora App
+# Next.js + TypeScript + CSS Modules
+# ================================
 
-# testing
-/coverage
+# ===== NEXT.JS =====
+# Build output
+.next/
+out/
 
-# next.js
-/.next/
-/out/
+# Static files
+/public/sitemap.xml
+/public/robots.txt
 
-# production
-/build
+# Next.js cache
+.next/cache/
 
-# misc
-.DS_Store
-*.pem
+# Vercel deployment files
+.vercel
 
-# debug
+# ===== NODE.JS =====
+# Dependencies
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Package manager lock files (mantén solo uno)
+# Si usas npm, mantén package-lock.json y comenta las otras líneas
+# package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
-# vercel
-.vercel
+# ===== VARIABLES DE ENTORNO =====
+# Environment variables (IMPORTANTE: nunca subir secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# typescript
+# Ejemplo de .env.example (este SÍ se puede subir)
+# .env.example
+
+# ===== LOGS =====
+# Logs de aplicación
+*.log
+logs/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# ===== SISTEMA OPERATIVO =====
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.nfs*
+
+# ===== EDITORES E IDEs =====
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs (WebStorm, IntelliJ, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ===== TESTING =====
+# Test coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Jest
+.jest-cache/
+
+# ===== TYPESCRIPT =====
+# Compiled TypeScript files
 *.tsbuildinfo
-next-env.d.ts
+dist/
+lib/
+
+# ===== CACHE Y TEMPORALES =====
+# Temporary folders
+tmp/
+temp/
+.tmp/
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettierCache
+
+# Stylelint cache
+.stylelintcache
+
+# ===== DEVELOPMENT TOOLS =====
+# Storybook
+.storybook/public
+storybook-static/
+
+# Bundle analyzer
+.bundle-analyzer/
+
+# ===== DEPLOYMENT =====
+# Build outputs que no queremos en git
+build/
+dist/
+
+# ===== OTROS ARCHIVOS ESPECÍFICOS =====
+# Archivos de backup
+*.bak
+*.backup
+*.old
+
+# Archivos de configuración local
+.local
+*.local
+
+# Database files (si usas SQLite localmente)
+*.sqlite
+*.sqlite3
+*.db
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# ===== OPCIONAL: ARCHIVOS DE DESARROLLO =====
+# Descomenta estas líneas si las necesitas:
+
+# Archivos de notas y TODOs personales
+# TODO.md
+# NOTES.md
+# scratch.txt
+
+# Archivos de testing locales
+# test-results/
+# test-reports/
+
+# Archivos de ejemplo con datos sensibles
+# examples/with-auth.tsx
+# examples/with-real-data.tsx
+
+# ===== MANTENER ESTOS ARCHIVOS =====
+# Archivos importantes que SÍ queremos en Git:
+# README.md
+# package.json
+# tsconfig.json
+# next.config.js
+# tailwind.config.js (si lo usas)
+# .env.example (plantilla de variables de entorno)
+# public/ (archivos estáticos)
+# src/ (código fuente)
+
+# =====================================
+# FINAL DEL ARCHIVO .gitignore
+# =====================================
