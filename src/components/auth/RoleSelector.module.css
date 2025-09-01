@@ -1,0 +1,57 @@
+/* src/components/auth/RoleSelector.module.css */
+
+.selectorContainer {
+  background-color: var(--color-blue-light);
+  border: var(--border-width) solid var(--color-blue-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2);
+  display: flex;
+  gap: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.roleButton {
+  flex: 1;
+  padding: var(--spacing-3) var(--spacing-4);
+  border-radius: var(--border-radius-md);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+}
+
+.roleButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.roleButton.selected {
+  background-color: var(--color-yellow-primary);
+  color: var(--color-gray-800);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.roleButton.unselected {
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-600);
+}
+
+.roleButton.unselected:hover {
+  background-color: var(--color-gray-300);
+  transform: translateY(-1px);
+}
+
+.roleIcon {
+  font-size: var(--font-size-lg);
+}
+
+.roleLabel {
+  font-weight: 600;
+}

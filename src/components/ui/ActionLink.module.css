@@ -1,0 +1,58 @@
+
+.actionLink {
+  display: inline-block;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background: none;
+  font-family: var(--font-family-base);
+}
+
+.actionLink:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.actionLink:hover {
+  transform: scale(1.05);
+}
+
+/* Variantes */
+.default {
+  color: var(--color-blue-primary);
+  text-decoration: underline;
+}
+
+.default:hover {
+  color: var(--color-blue-primary);
+  text-decoration: none;
+}
+
+.forgotPassword {
+  background-color: var(--color-green-light);
+  border: var(--border-width) solid var(--color-primary-green);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-2) var(--spacing-4);
+  text-align: center;
+  color: var(--color-gray-700);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+
+.forgotPassword:hover {
+  background-color: var(--color-green-bg);
+  color: var(--color-gray-800);
+  box-shadow: var(--shadow-md);
+}
+
+.help {
+  color: var(--color-purple-primary);
+  text-decoration: underline;
+}
+
+.help:hover {
+  color: var(--color-purple-primary);
+  text-decoration: none;
+}
