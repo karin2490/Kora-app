@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
-import RoleSelector from './RoleSelector';
-import InputField from '../ui/InputField';
-import Button from '../ui/Button';
-import FormCard from '../ui/FormCard';
-import ActionLink from '../ui/ActionLink';
+import RoleSelector from '../RoleSelector/RoleSelector';
+import InputField from '../../../../shared/ui/InputField/InputField';
+import Button from '../../../../shared/ui/Button/Button';
+import FormCard from '../../../../shared/ui/FormCard/FormCard';
+import ActionLink from '../../../../shared/ui/ActionLink/ActionLink';
 import styles from './LoginForm.module.css';
 
 type UserRole = 'student' | 'teacher';
