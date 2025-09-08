@@ -1,3 +1,5 @@
+/* src/styles/variables.css */
+
 :root {
   /* Colores principales */
   --color-primary-green: #4ade80;
@@ -23,7 +25,7 @@
   --color-red-border: #f87171;
   
   /* Grises */
-  --color-gray-100: #f3f4f6;
+  --color-gray-100: #f5f5f0;  /* Más cremoso para FormCard */
   --color-gray-200: #e5e7eb;
   --color-gray-300: #d1d5db;
   --color-gray-600: #4b5563;

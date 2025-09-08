@@ -1,0 +1,123 @@
+
+.loginContainer {
+  min-height: calc(100vh - 120px); /* Ajustar por altura del header */
+  background-color: var(--color-green-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Reducir padding superior para acercar al header */
+  padding: var(--spacing-4) var(--spacing-4) var(--spacing-8) var(--spacing-4);
+  background-color: transparent;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 100%;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.label {
+  display: block;
+  color: var(--color-gray-700);
+  font-weight: 600;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-base);
+}
+
+.buttonContainer {
+  margin-top: var(--spacing-2);
+}
+
+.linkContainer {
+  text-align: center;
+  margin-top: var(--spacing-2);
+}
+
+/* Animaciones de carga */
+.form.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.form.loading * {
+  cursor: wait;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Móviles pequeños (320px - 480px) */
+@media (max-width: 480px) {
+  .loginContainer {
+    min-height: calc(100vh - 80px);
+  }
+  
+  .content {
+    padding: var(--spacing-2);
+  }
+  
+  .form {
+    gap: var(--spacing-3);
+  }
+  
+  .fieldGroup {
+    gap: var(--spacing-2);
+  }
+}
+
+/* Tablets Portrait - iPad (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .loginContainer {
+    min-height: calc(100vh - 100px);
+  }
+  
+  .content {
+    padding: var(--spacing-3) var(--spacing-4) var(--spacing-6) var(--spacing-4);
+  }
+  
+  .form {
+    gap: var(--spacing-4);
+  }
+}
+
+/* iPad Landscape / Laptop pequeño (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .loginContainer {
+    min-height: calc(100vh - 120px);
+  }
+  
+  .content {
+    padding: var(--spacing-4) var(--spacing-6) var(--spacing-8) var(--spacing-6);
+  }
+  
+  .form {
+    gap: var(--spacing-5);
+  }
+}
+
+/* Laptop / Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .loginContainer {
+    min-height: calc(100vh - 140px);
+  }
+  
+  .content {
+    padding: var(--spacing-6) var(--spacing-8) var(--spacing-12) var(--spacing-8);
+  }
+  
+  .form {
+    gap: var(--spacing-6);
+  }
+}

@@ -1,0 +1,71 @@
+.header {
+  background-color: #dcfce7;
+  /* Reducir padding para acercar al formulario */
+  padding: var(--spacing-4) var(--spacing-6);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoBox {
+  padding: var(--spacing-3);
+}
+
+.title {
+  font-size: var(--font-size-3xl); /* Reducido de 4xl a 3xl */
+  font-weight: bold;
+  color: #4ade80;
+  text-align: center;
+  margin: 0;
+  font-family: var(--font-family-child);
+  letter-spacing: 0.05em;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .header {
+    padding: var(--spacing-2) var(--spacing-4);
+  }
+  
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+/* Tablets - iPad Portrait */
+@media (min-width: 481px) and (max-width: 768px) {
+  .header {
+    padding: var(--spacing-3) var(--spacing-5);
+  }
+  
+  .title {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+/* iPad Landscape / Laptop pequeño */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .header {
+    padding: var(--spacing-4) var(--spacing-6);
+  }
+  
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+/* Laptop / Desktop */
+@media (min-width: 1025px) {
+  .header {
+    padding: var(--spacing-5) var(--spacing-8);
+  }
+  
+  .title {
+    font-size: var(--font-size-4xl);
+  }
+}

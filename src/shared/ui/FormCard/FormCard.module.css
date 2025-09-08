@@ -1,0 +1,134 @@
+
+.cardContainer {
+  width: 100%;
+  margin: 0 auto;
+  /* Responsive padding horizontal */
+  padding: 0 var(--spacing-4);
+}
+
+.cardContainer.sm {
+  max-width: 384px;
+}
+
+.cardContainer.md {
+  max-width: 448px;
+}
+
+.cardContainer.lg {
+  max-width: 512px;
+}
+
+.cardContainer.xl {
+  max-width: 576px;
+}
+
+.card {
+  background-color: #f5f5f0;
+  border: var(--border-width) solid #93c5fd;
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-5); /* Reducido ligeramente */
+  box-shadow: var(--shadow-lg);
+  animation: slideUp var(--transition-normal) ease-out;
+}
+
+.title {
+  font-size: var(--font-size-xl); /* Reducido de 2xl */
+  font-weight: bold;
+  text-align: center;
+  color: var(--color-gray-800);
+  margin-bottom: var(--spacing-4); /* Reducido de spacing-6 */
+  font-family: var(--font-family-child);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Móviles pequeños (320px - 480px) */
+@media (max-width: 480px) {
+  .cardContainer {
+    padding: 0 var(--spacing-2);
+    max-width: 100%;
+  }
+  
+  .card {
+    padding: var(--spacing-4);
+    border-radius: var(--border-radius-lg);
+  }
+  
+  .title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .content {
+    gap: var(--spacing-3);
+  }
+}
+
+/* Tablets Portrait - iPad (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cardContainer {
+    padding: 0 var(--spacing-3);
+    max-width: 480px;
+  }
+  
+  .card {
+    padding: var(--spacing-5);
+  }
+  
+  .title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .content {
+    gap: var(--spacing-4);
+  }
+}
+
+/* iPad Landscape / Laptop pequeño (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cardContainer {
+    padding: 0 var(--spacing-4);
+    max-width: 520px;
+  }
+  
+  .card {
+    padding: var(--spacing-6);
+  }
+  
+  .title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-5);
+  }
+  
+  .content {
+    gap: var(--spacing-5);
+  }
+}
+
+/* Laptop / Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .cardContainer {
+    padding: 0 var(--spacing-6);
+    max-width: 560px;
+  }
+  
+  .card {
+    padding: var(--spacing-8);
+  }
+  
+  .title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .content {
+    gap: var(--spacing-6);
+  }
+}

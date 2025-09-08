@@ -1,0 +1,187 @@
+.fieldContainer {
+  margin-bottom: var(--spacing-4);
+}
+
+.label {
+  display: block;
+  color: var(--color-gray-700);
+  font-weight: 600;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-base);
+}
+
+.required {
+  color: var(--color-red-primary);
+  margin-left: var(--spacing-1);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputBox {
+  border: none;
+  border-radius: var(--border-radius-xl);
+  background-color: #c7d2fe;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.inputBox:focus-within {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.inputContainer {
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  padding: var(--spacing-3);
+  background-color: #a5b4fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+}
+
+.icon {
+  font-size: var(--font-size-lg);
+  color: #3730a3;
+}
+
+.input {
+  flex: 1;
+  padding: var(--spacing-3);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: var(--font-size-base);
+  color: var(--color-gray-800);
+  font-family: var(--font-family-base);
+  min-height: 44px;
+}
+
+.input::placeholder {
+  color: var(--color-gray-600);
+}
+
+.input[type="password"] {
+  font-family: monospace;
+  letter-spacing: 0.1em;
+}
+
+/* Indicadores de contraseña */
+.passwordIndicators {
+  padding: var(--spacing-1) var(--spacing-3);
+  display: flex;
+  gap: var(--spacing-1);
+  justify-content: flex-start;
+}
+
+.passwordDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: background-color var(--transition-normal);
+}
+
+.passwordDot.filled {
+  background-color: #3730a3;
+}
+
+.passwordDot.empty {
+  background-color: #6366f1;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Móviles pequeños (320px - 480px) */
+@media (max-width: 480px) {
+  .fieldContainer {
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .label {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .iconContainer {
+    padding: var(--spacing-2);
+    min-width: 44px;
+  }
+  
+  .icon {
+    font-size: var(--font-size-base);
+  }
+  
+  .input {
+    padding: var(--spacing-2);
+    font-size: var(--font-size-sm);
+    min-height: 48px; /* Más altura en móvil */
+  }
+  
+  .passwordDot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Tablets Portrait - iPad (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .iconContainer {
+    padding: var(--spacing-3);
+    min-width: 52px;
+  }
+  
+  .input {
+    padding: var(--spacing-3);
+    font-size: var(--font-size-base);
+    min-height: 48px;
+  }
+  
+  .passwordDot {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* iPad Landscape / Laptop pequeño (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .iconContainer {
+    padding: var(--spacing-3);
+    min-width: 56px;
+  }
+  
+  .input {
+    padding: var(--spacing-3);
+    font-size: var(--font-size-base);
+    min-height: 50px;
+  }
+  
+  .passwordDot {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Laptop / Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .iconContainer {
+    padding: var(--spacing-4);
+    min-width: 60px;
+  }
+  
+  .input {
+    padding: var(--spacing-4);
+    font-size: var(--font-size-lg);
+    min-height: 52px;
+  }
+  
+  .passwordDot {
+    width: 16px;
+    height: 16px;
+  }
+}
