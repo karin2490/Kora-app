@@ -1,0 +1,83 @@
+.sidebar {
+  background-color: var(--color-gray-light, #e8e6e0);
+  padding: 2rem 1rem;
+  border-right: 1px solid var(--color-border, #d1d1d1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #4a4a4a);
+  margin: 0;
+}
+
+.calendarIcon {
+  font-size: 1.2rem;
+}
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.activityItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.activityItem:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.iconContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray-300, #d1d5db);
+  transition: all 0.3s ease;
+}
+
+.completedIcon {
+  background-color: var(--color-primary-green, #4ade80);
+}
+
+.icon {
+  font-size: 1.2rem;
+  color: var(--color-text-secondary, #6b7280);
+}
+
+.checkIcon {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.activityTitle {
+  font-size: 0.875rem;
+  color: var(--color-text-primary, #4a4a4a);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.completed .activityTitle {
+  color: var(--color-primary-green, #22c55e);
+}
