@@ -1,0 +1,109 @@
+ 
+.programCard {
+  background: linear-gradient(
+    135deg, 
+    var(--color-purple-light, #f3e8ff) 0%, 
+    var(--color-purple-medium, #e9d5ff) 100%
+  );
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.programCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.programCard:hover::before,
+.hovered::before {
+  opacity: 1;
+}
+
+.programCard:hover,
+.hovered {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(168, 85, 247, 0.15);
+}
+
+.pressed {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(168, 85, 247, 0.2);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.cardIcon {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.hovered .cardIcon {
+  transform: scale(1.1);
+}
+
+.cardText {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-purple-primary, #7c3aed);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.programCard:focus {
+  outline: 2px solid var(--color-purple-primary, #7c3aed);
+  outline-offset: 2px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .programCard {
+    padding: 1.25rem;
+    min-height: 90px;
+  }
+  
+  .cardIcon {
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+  
+  .cardText {
+    font-size: 0.8rem;
+  }
+}
