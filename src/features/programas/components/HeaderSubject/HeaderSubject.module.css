@@ -1,0 +1,73 @@
+.headerSubject {
+  background-color: var(--color-gray-light, #e8e6e0);
+  padding: 1rem;
+  border-right: 1px solid var(--color-border, #d1d1d1);
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: transparent; /* Sin fondo rojo */
+  border-radius: 8px;
+  color: #000000; /* CAMBIO: Texto negro */
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #000000; /* CAMBIO: Texto negro */
+}
+
+/* MANTENER: Las secciones azules de las otras materias */
+.subjectsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.subjectItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.subjectItem:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.selected {
+  background-color: var(--color-primary-blue, #3b82f6);
+  color: white;
+}
+
+.subjectIcon {
+  font-size: 1.5rem;
+}
+
+.subjectName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+@media (max-width: 768px) {
+  .headerSubject {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .subjectsList {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}

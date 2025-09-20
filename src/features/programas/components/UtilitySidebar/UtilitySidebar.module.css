@@ -1,0 +1,91 @@
+.utilitySidebar {
+  background-color: var(--color-gray-light, #e8e6e0);
+  padding: 1rem 0.5rem;
+  border-left: 1px solid var(--color-border, #d1d1d1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  min-height: 100vh;
+}
+
+.iconList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.iconButton {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: transparent;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.iconButton:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.05);
+}
+
+.iconButton:focus {
+  outline: none;
+  border-color: var(--color-primary-blue, #3b82f6);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.active {
+  background-color: var(--color-primary-blue, #3b82f6);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.active:hover {
+  background-color: var(--color-primary-blue-dark, #2563eb);
+  transform: scale(1.1);
+}
+
+.iconSymbol {
+  font-size: 1.5rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.active .iconSymbol {
+  filter: brightness(1.2);
+}
+
+@media (max-width: 768px) {
+  .utilitySidebar {
+    width: 100%;
+    min-height: auto;
+    padding: 0.75rem;
+    border-left: none;
+    border-top: 1px solid var(--color-border, #d1d1d1);
+    order: 3;
+  }
+
+  .iconList {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 0.5rem;
+  }
+
+  .iconButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .iconSymbol {
+    font-size: 1.25rem;
+  }
+}
