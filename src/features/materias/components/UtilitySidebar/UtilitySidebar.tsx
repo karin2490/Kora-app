@@ -1,7 +1,7 @@
- 
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 
 import styles from './UtilitySidebar.module.css';
@@ -31,11 +31,23 @@ const UtilitySidebar: React.FC<UtilitySidebarProps> = ({
   onIconClick
 }) => {
   const [activeIcon, setActiveIcon] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleIconClick = useCallback((iconId: string) => {
     setActiveIcon(prevActive => prevActive === iconId ? null : iconId);
+    
+    // Navegar al perfil si se hace clic en el ícono de perfil
+    if (iconId === 'profile') {
+      router.push('/profile');
+    }
+    
+     // Navegar a materias si se hace clic en el ícono de libros
+    if (iconId === 'books') {
+      router.push('/materias');
+  }
+  
     onIconClick?.(iconId);
-  }, [onIconClick]);
+  }, [onIconClick, router]);
 
   const handleKeyDown = useCallback((
     event: React.KeyboardEvent,

@@ -1,7 +1,7 @@
- 
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 
 import styles from './index.module.css';
@@ -31,6 +31,7 @@ const subjects: Subject[] = [
 const Materias: React.FC<MateriasProps> = ({ className }) => {
   const [selectedSubject, setSelectedSubject] = useState<string>('materias');
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubjectChange = useCallback((subjectId: string) => {
     setSelectedSubject(subjectId);
@@ -38,9 +39,10 @@ const Materias: React.FC<MateriasProps> = ({ className }) => {
 
   const handleSubjectSelect = useCallback((subjectId: string) => {
     setSelectedCard(subjectId);
-    // Aquí podrías navegar a la página específica de la materia
     console.log('Navegando a materia:', subjectId);
-  }, []);
+    // Navegar a programas
+    router.push('/programas');
+  }, [router]);
 
   return (
     <div className={clsx(styles.materias, className)}>

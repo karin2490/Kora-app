@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './index.module.css';
 import HeaderSubject from '../HeaderSubject/HeaderSubject';
@@ -28,14 +29,15 @@ const programs: Program[] = [
   { id: 'movimiento5', title: 'Movimiento V:', subtitle: 'Entre Líneas', isActive: true, order: 5 },
 ];
 
-const breadcrumbs: BreadcrumbItem[] = [
-  { id: 'sinfonia', label: 'Sinfonía', href: '/materias' },
-  { id: 'programas', label: 'Programas', isActive: true },
-];
-
 const Programas: React.FC<ProgramasProps> = ({ className }) => {
   const [selectedSubject, setSelectedSubject] = useState<string>('sinfonia');
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+  const router = useRouter();
+
+  const breadcrumbs: BreadcrumbItem[] = [
+    { id: 'sinfonia', label: 'Sinfonía', href: '/materias' },
+    { id: 'programas', label: 'Programas', isActive: true },
+  ];
 
   const handleSubjectChange = useCallback((subjectId: string) => {
     setSelectedSubject(subjectId);
@@ -44,7 +46,11 @@ const Programas: React.FC<ProgramasProps> = ({ className }) => {
   const handleProgramSelect = useCallback((programId: string) => {
     setSelectedProgram(programId);
     console.log('Selected program:', programId);
-  }, []);
+    // Navegar a actividad cuando se selecciona "Preludio"
+    if (programId === 'preludio') {
+      router.push('/actividad');
+    }
+  }, [router]);
 
   return (
     <div className={clsx(styles.programas, className)}>

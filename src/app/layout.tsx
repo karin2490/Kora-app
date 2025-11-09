@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { AuthProvider } from "@/shared/contexts/AuthContext"; 
 
 export const metadata: Metadata = {
   title: 'Kora - Instructor Virtual para Preescolar',
@@ -26,9 +27,11 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <div id="root">
-          {children}
-        </div>
+        <AuthProvider>  {/* ⬅️ NUEVO: Envuelve el contenido */}
+          <div id="root">
+            {children}
+          </div>
+        </AuthProvider>  {/* ⬅️ NUEVO: Cierra el AuthProvider */}
       </body>
     </html>
   );

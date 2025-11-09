@@ -1,7 +1,8 @@
- 
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/shared/contexts/AuthContext';
 import clsx from 'clsx';
 import styles from './UtilitySidebar.module.css';
 
@@ -14,65 +15,84 @@ interface UtilityItem {
   icon: string;
   label: string;
   isActive?: boolean;
+  action?: string;
 }
 
 const UtilitySidebar: React.FC<UtilitySidebarProps> = ({ className }) => {
+  const router = useRouter();
+  const { user } = useAuth();
+
   const utilityItems: UtilityItem[] = [
     {
       id: 1,
+      icon: '🏠',
+      label: 'Dashboard',
+      action: 'dashboard'
+    },
+    {
+      id: 2,
       icon: '👤',
       label: 'Perfil',
       isActive: true
     },
     {
-      id: 2,
+      id: 3,
       icon: '📚',
-      label: 'Biblioteca'
+      label: 'Biblioteca',
+      action: 'materias'
     },
     {
-      id: 3,
+      id: 4,
       icon: '✓',
       label: 'Tareas'
     },
     {
-      id: 4,
+      id: 5,
       icon: '🧠',
       label: 'Actividades'
     },
     {
-      id: 5,
+      id: 6,
       icon: '💎',
       label: 'Logros'
-    },
-    {
-      id: 6,
-      icon: '→',
-      label: 'Salir'
     }
   ];
 
   const handleItemClick = (item: UtilityItem) => {
-    console.log(`Clicked on ${item.label}`);
+    if (item.action === 'dashboard' && user?.role === 'student') {
+      router.push('/dashboard');
+    } else if (item.action === 'materias') {
+      router.push('/materias');
+    } else {
+      console.log(`Clicked on ${item.label}`);
+    }
   };
 
   return (
     <div className={clsx(styles.utilitySidebar, className)}>
       <div className={styles.utilityList}>
-        {utilityItems.map((item) => (
-          <button
-            key={item.id}
-            className={clsx(
-              styles.utilityItem,
-              item.isActive && styles.active
-            )}
-            onClick={() => handleItemClick(item)}
-            aria-label={item.label}
-          >
-            <div className={styles.iconContainer}>
-              <span className={styles.icon}>{item.icon}</span>
-            </div>
-          </button>
-        ))}
+        {utilityItems.map((item) => {
+          // Solo mostrar el botón de Dashboard si es estudiante
+          if (item.action === 'dashboard' && user?.role !== 'student') {
+            return null;
+          }
+          
+          return (
+            <button
+              key={item.id}
+              className={clsx(
+                styles.utilityItem,
+                item.isActive && styles.active
+              )}
+              onClick={() => handleItemClick(item)}
+              aria-label={item.label}
+            >
+              <div className={styles.iconContainer}>
+                <span className={styles.icon}>{item.icon}</span>
+              </div>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

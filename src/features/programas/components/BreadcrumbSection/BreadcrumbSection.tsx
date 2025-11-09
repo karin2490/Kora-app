@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './BreadcrumbSection.module.css';
 import type { BreadcrumbItem } from '../../types';
@@ -14,7 +15,15 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
   breadcrumbs = [],
   className
 }) => {
+  const router = useRouter();
+
   if (breadcrumbs.length === 0) return null;
+
+  const handleClick = (item: BreadcrumbItem) => {
+    if (item.href && !item.isActive) {
+      router.push(item.href);
+    }
+  };
 
   return (
     <nav className={clsx(styles.breadcrumbSection, className)} aria-label="Breadcrumb">
@@ -29,15 +38,16 @@ const BreadcrumbSection: React.FC<BreadcrumbSectionProps> = ({
                 </span>
               )}
               {item.href ? (
-                <a
-                  href={item.href}
+                <span
+                  onClick={() => handleClick(item)}
                   className={clsx(
                     styles.breadcrumbLink,
                     { [styles.active]: item.isActive }
                   )}
+                  style={{ cursor: item.isActive ? 'default' : 'pointer' }}
                 >
                   {item.label}
-                </a>
+                </span>
               ) : (
                 <span
                   className={clsx(

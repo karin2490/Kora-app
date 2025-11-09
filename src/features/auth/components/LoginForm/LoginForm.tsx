@@ -1,8 +1,8 @@
 // src/components/auth/LoginForm.tsx
-'use client';  // <-- Esta línea era la que faltaba
+'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { useAuth } from '@/shared/contexts/AuthContext';
 import RoleSelector from '../RoleSelector/RoleSelector';
 import InputField from '../../../../shared/ui/InputField/InputField';
 import Button from '../../../../shared/ui/Button/Button';
@@ -21,34 +21,38 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const [error, setError] = useState('');
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
 
     try {
-      const credentials = { username, password, role: selectedRole };
+      // Simular autenticación
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      if (onLogin) {
-        await onLogin(credentials);
+      // Validar credenciales según el rol
+      const isValidStudent = selectedRole === 'student' && 
+                            username === 'alumno1' && 
+                            password === 'Kora2024*';
+      
+      const isValidTeacher = selectedRole === 'teacher' && 
+                             username === 'maestro1' && 
+                             password === 'Kora2024*';
+      
+      if (isValidStudent || isValidTeacher) {
+        // Login exitoso
+        login(username, password, selectedRole);
       } else {
-        // Lógica de autenticación por defecto
-        console.log('Login attempt:', credentials);
-        
-        // Simular autenticación
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Redirect basado en el rol
-        if (selectedRole === 'student') {
-          router.push('/dashboard');
-        } else {
-          router.push('/teacher');
-        }
+        // Credenciales incorrectas
+        setError('Usuario o contraseña incorrectos');
       }
+      
     } catch (error) {
       console.error('Login error:', error);
-      // Aquí puedes manejar errores de autenticación
+      setError('Error al iniciar sesión');
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +60,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
   const handleForgotPassword = () => {
     console.log('Forgot password clicked');
-    // Implementar lógica de recuperación de contraseña
   };
 
   return (
@@ -99,6 +102,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
               icon="🔒"
               required
             />
+
+            {/* Mensaje de Error */}
+            {error && (
+              <div style={{ 
+                color: '#ef4444', 
+                fontSize: '0.875rem', 
+                textAlign: 'center',
+                marginTop: '0.5rem'
+              }}>
+                {error}
+              </div>
+            )}
 
             {/* Botón Iniciar Sesión */}
             <div className={styles.buttonContainer}>

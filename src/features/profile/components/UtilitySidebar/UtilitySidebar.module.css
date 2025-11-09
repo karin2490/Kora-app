@@ -1,109 +1,79 @@
- 
 .utilitySidebar {
-  background: white;
-  border-radius: 16px;
-  padding: 20px 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
-  width: 80px;
-  height: calc(100vh - 40px);
+  background-color: #e8e6e0;
+  border-left: 1px solid #d1d1d1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
+  align-items: center;
+  padding: 2rem 0.5rem;
+  gap: 1.5rem;
 }
 
 .utilityList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  flex: 1;
-  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  align-items: center;
 }
 
 .utilityItem {
-  background: transparent;
-  border: 2px solid #e5e7eb;
+  width: 50px;
+  height: 50px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
-  padding: 12px;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.utilityItem:hover {
-  border-color: #6366f1;
-  background: #f8fafc;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
-}
-
-.utilityItem:focus {
-  outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-.utilityItem.active {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-  border-color: #4f46e5;
-  color: white;
-}
-
-.utilityItem.active:hover {
-  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-  border-color: #4338ca;
-}
-
-.iconContainer {
-  width: 32px;
-  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.active .iconContainer {
-  background: rgba(255, 255, 255, 0.2);
+.utilityItem:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.utilityItem:active {
+  transform: scale(0.98);
+}
+
+.utilityItem.active {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .icon {
-  font-size: 16px;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
 @media (max-width: 768px) {
   .utilitySidebar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: auto;
-    padding: 16px 8px;
-    z-index: 1000;
+    flex-direction: row;
+    padding: 1rem;
+    border-left: none;
+    border-top: 1px solid #d1d1d1;
+    overflow-x: auto;
   }
   
   .utilityList {
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center;
   }
   
   .utilityItem {
-    padding: 8px;
-  }
-  
-  .iconContainer {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .icon {
-    font-size: 12px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
   }
 }

@@ -2,67 +2,23 @@
   background: white;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e7eb;
-  flex: 1;
-  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  gap: 20px;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 1.5rem;
+  font-weight: 600;
   color: #1f2937;
   margin: 0;
-}
-
-.cardHeader {
-  font-size: 12px;
-  color: #6b7280;
-  background: #f3f4f6;
-  padding: 4px 8px;
-  border-radius: 4px;
 }
 
 .programGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  flex: 1;
-  margin-bottom: 20px;
-}
-
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 16px;
-  border-top: 1px solid #e5e7eb;
-  margin-top: auto;
-}
-
-.cardContent {
-  font-size: 12px;
-  color: #6b7280;
-  background: #f3f4f6;
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
-.programSectionLabel {
-  font-size: 12px;
-  color: #6b7280;
-  background: #f3f4f6;
-  padding: 4px 8px;
-  border-radius: 4px;
 }
 
 @media (max-width: 1024px) {
@@ -74,30 +30,16 @@
 @media (max-width: 768px) {
   .programSection {
     padding: 20px;
-    height: auto;
   }
   
   .programGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-  }
-  
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  
-  .footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   .programGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
+    grid-template-columns: 1fr;
   }
 }

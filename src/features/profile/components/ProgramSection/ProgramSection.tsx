@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './ProgramSection.module.css';
 import ProgramCard from '../ProgramCard/ProgramCard';
@@ -10,66 +11,81 @@ interface ProgramSectionProps {
 }
 
 const ProgramSection: React.FC<ProgramSectionProps> = ({ className }) => {
+  const router = useRouter();
+
   const programs = [
     {
       id: 1,
-      letter: 'B',
+      letters: ['A', 'B', 'C'],
       bgColor: '#ec4899',
-      title: 'Programa'
+      title: 'Preludio:',
+      subtitle: 'Melodía del Sonido',
+      isClickable: true
     },
     {
       id: 2,
-      letter: 'B',
-      bgColor: '#8b5cf6',
-      title: 'Programa'
+      letters: ['A', 'B', 'C'],
+      bgColor: '#ec4899',
+      title: 'Movimiento I:',
+      subtitle: 'Notas de la palabra',
+      isClickable: false
     },
     {
       id: 3,
-      letter: 'B',
-      bgColor: '#06b6d4',
-      title: 'Programa'
+      letters: ['A', 'B', 'C'],
+      bgColor: '#ec4899',
+      title: 'Movimiento II:',
+      subtitle: 'El compás de la oración',
+      isClickable: false
     },
     {
       id: 4,
-      letter: 'B',
-      bgColor: '#10b981',
-      title: 'Programa'
+      letters: ['A', 'B', 'C'],
+      bgColor: '#ec4899',
+      title: 'Movimiento III:',
+      subtitle: 'Ritmo y trazo',
+      isClickable: false
     },
     {
       id: 5,
-      letter: 'B',
-      bgColor: '#f59e0b',
-      title: 'Programa'
+      letters: ['A', 'B', 'C'],
+      bgColor: '#ec4899',
+      title: 'Movimiento IV:',
+      subtitle: 'Sinfónica del Pensamiento',
+      isClickable: false
     },
     {
       id: 6,
-      letter: 'B',
-      bgColor: '#ef4444',
-      title: 'Programa'
+      letters: ['A', 'B', 'C'],
+      bgColor: '#ec4899',
+      title: 'Movimiento V:',
+      subtitle: 'Entre Líneas',
+      isClickable: false
     }
   ];
 
+  const handleProgramClick = (program: typeof programs[0]) => {
+    if (program.isClickable) {
+      router.push('/actividad');
+    }
+  };
+
   return (
     <div className={clsx(styles.programSection, className)}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Mis Programas</h2>
-        <div className={styles.cardHeader}>8. CardHeader</div>
-      </div>
+      <h2 className={styles.title}>Mis Programas</h2>
       
       <div className={styles.programGrid}>
         {programs.map((program) => (
           <ProgramCard 
             key={program.id}
-            letter={program.letter}
+            letters={program.letters}
             bgColor={program.bgColor}
             title={program.title}
+            subtitle={program.subtitle}
+            isClickable={program.isClickable}
+            onClick={() => handleProgramClick(program)}
           />
         ))}
-      </div>
-      
-      <div className={styles.footer}>
-        <span className={styles.cardContent}>9. CardContent</span>
-        <span className={styles.programSectionLabel}>7. ProgramSection</span>
       </div>
     </div>
   );

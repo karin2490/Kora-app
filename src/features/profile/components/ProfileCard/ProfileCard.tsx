@@ -1,4 +1,3 @@
- 
 'use client';
 
 import React, { useState } from 'react';
@@ -23,12 +22,12 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ className }) => {
       <div className={styles.profileInfo}>
         <div className={styles.infoRow}>
           <span className={styles.label}>Alias</span>
-          <span className={styles.value}>Priscila</span>
+          <span className={styles.value}>Priscilita</span>
         </div>
         
         <div className={styles.infoRow}>
           <span className={styles.label}>Correo</span>
-          <span className={styles.value}>Priscila123@gmail.com</span>
+          <span className={styles.value}>Priscilita123@gmail.com</span>
         </div>
         
         <div className={styles.infoRow}>

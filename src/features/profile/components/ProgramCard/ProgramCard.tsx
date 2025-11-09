@@ -5,28 +5,37 @@ import clsx from 'clsx';
 import styles from './ProgramCard.module.css';
 
 interface ProgramCardProps {
-  letter: string;
+  letters: string[];
   bgColor: string;
   title: string;
+  subtitle?: string;
+  isClickable?: boolean;
   className?: string;
   onClick?: () => void;
 }
 
 const ProgramCard: React.FC<ProgramCardProps> = ({ 
-  letter, 
+  letters, 
   bgColor, 
-  title, 
+  title,
+  subtitle, 
+  isClickable = true,
   className,
   onClick 
 }) => {
   return (
     <div 
-      className={clsx(styles.programCard, className)}
-      onClick={onClick}
+      className={clsx(
+        styles.programCard, 
+        { [styles.disabled]: !isClickable },
+        className
+      )}
+      onClick={isClickable ? onClick : undefined}
       role="button"
-      tabIndex={0}
+      tabIndex={isClickable ? 0 : -1}
+      style={{ cursor: isClickable ? 'pointer' : 'not-allowed' }}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
+        if (isClickable && (e.key === 'Enter' || e.key === ' ')) {
           onClick?.();
         }
       }}
@@ -35,11 +44,16 @@ const ProgramCard: React.FC<ProgramCardProps> = ({
         className={styles.iconContainer}
         style={{ backgroundColor: bgColor }}
       >
-        <span className={styles.letter}>{letter}</span>
+        <div className={styles.lettersGrid}>
+          {letters.map((letter, index) => (
+            <span key={index} className={styles.letter}>{letter}</span>
+          ))}
+        </div>
       </div>
       
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
     </div>
   );

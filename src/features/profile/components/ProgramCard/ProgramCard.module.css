@@ -1,7 +1,6 @@
 .programCard {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f8d7e8 0%, #f4c1db 100%);
+  border-radius: 16px;
   padding: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -9,118 +8,104 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  position: relative;
-  overflow: hidden;
+  min-height: 140px;
 }
 
 .programCard:hover {
-  border-color: #6366f1;
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 8px 20px rgba(236, 72, 153, 0.2);
 }
 
 .programCard:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.3);
 }
 
-.programCard:active {
-  transform: translateY(-2px);
+.programCard.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.programCard.disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .iconContainer {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  flex-shrink: 0;
 }
 
-.iconContainer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 50%;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+.lettersGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2px;
+  width: 100%;
+  height: 100%;
 }
 
 .letter {
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 1;
-  position: relative;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: #ec4899;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content {
   text-align: center;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
 }
 
 .title {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: #ec4899;
   margin: 0;
   line-height: 1.2;
 }
 
-.programCard:hover .title {
-  color: #1f2937;
-}
-
-.programCard::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transform: rotate(45deg);
-  transition: all 0.5s ease;
-  opacity: 0;
-}
-
-.programCard:hover::before {
-  opacity: 1;
-  animation: shine 0.5s ease-in-out;
-}
-
-@keyframes shine {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-  }
-  100% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
-  }
+.subtitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #ec4899;
+  margin: 0;
+  line-height: 1.2;
 }
 
 @media (max-width: 768px) {
   .programCard {
-    padding: 12px;
-    gap: 8px;
+    padding: 14px;
+    min-height: 120px;
   }
   
   .iconContainer {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
   }
   
   .letter {
-    font-size: 16px;
+    font-size: 14px;
   }
   
   .title {
-    font-size: 12px;
+    font-size: 0.75rem;
+  }
+  
+  .subtitle {
+    font-size: 0.7rem;
   }
 }
