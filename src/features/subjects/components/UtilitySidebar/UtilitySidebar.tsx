@@ -43,7 +43,7 @@ const UtilitySidebar: React.FC<UtilitySidebarProps> = ({
     
      // Navegar a materias si se hace clic en el ícono de libros
     if (iconId === 'books') {
-      router.push('/materias');
+      router.push('/subjects');
   }
   
     onIconClick?.(iconId);

@@ -1,8 +1,8 @@
 import { apiClient } from './client';
 import { Actividad, ActividadUsuario } from '@/types/api';
 
-const ACTIVIDADES_ENDPOINTS = {
-  LIST: '/actividades',
+const ACTIVITIES_ENDPOINTS = {
+  LIST: '/activities',
   DETAIL: (id: number) => `/actividades/${id}`,
   MIS_ACTIVIDADES: '/usuarios/me/actividades',
   ACTIVIDADES_HOY: '/usuarios/me/actividades/hoy',
@@ -13,7 +13,7 @@ const ACTIVIDADES_ENDPOINTS = {
 export interface GetActividadesParams {
   etapaId?: number;
   tipoId?: number;
-  soloActivas?: boolean;
+  onlyActive?: boolean;
 }
 
 export interface ActividadUsuarioUpdate {
@@ -22,18 +22,18 @@ export interface ActividadUsuarioUpdate {
   tiempo_dedicado?: number;
 }
 
-export const actividadesService = {
+export const activitiesService = {
   /**
    * Obtiene la lista de actividades (catálogo completo)
    * @param params - Parámetros de filtrado
    */
   getActividades: async (params: GetActividadesParams = {}): Promise<Actividad[]> => {
-    const { etapaId, tipoId, soloActivas = true } = params;
-    const response = await apiClient.get<Actividad[]>(ACTIVIDADES_ENDPOINTS.LIST, {
+    const { etapaId, tipoId, onlyActive = true } = params;
+    const response = await apiClient.get<Actividad[]>(ACTIVITIES_ENDPOINTS.LIST, {
       params: {
         etapa_id: etapaId,
         tipo_id: tipoId,
-        solo_activas: soloActivas,
+        solo_activas: onlyActive,
       },
     });
     return response.data;
@@ -44,7 +44,7 @@ export const actividadesService = {
    * @param id - ID de la actividad
    */
   getActividad: async (id: number): Promise<Actividad> => {
-    const response = await apiClient.get<Actividad>(ACTIVIDADES_ENDPOINTS.DETAIL(id));
+    const response = await apiClient.get<Actividad>(ACTIVITIES_ENDPOINTS.DETAIL(id));
     return response.data;
   },
 
@@ -54,7 +54,7 @@ export const actividadesService = {
    */
   getMisActividades: async (estado?: string): Promise<ActividadUsuario[]> => {
     const response = await apiClient.get<ActividadUsuario[]>(
-      ACTIVIDADES_ENDPOINTS.MIS_ACTIVIDADES,
+      ACTIVITIES_ENDPOINTS.MIS_ACTIVIDADES,
       {
         params: estado ? { estado } : undefined,
       }
@@ -67,7 +67,7 @@ export const actividadesService = {
    */
   getActividadesHoy: async (): Promise<ActividadUsuario[]> => {
     const response = await apiClient.get<ActividadUsuario[]>(
-      ACTIVIDADES_ENDPOINTS.ACTIVIDADES_HOY
+      ACTIVITIES_ENDPOINTS.ACTIVIDADES_HOY
     );
     return response.data;
   },
@@ -77,7 +77,7 @@ export const actividadesService = {
    * @param actividadId - ID de la actividad a asignar
    */
   asignarActividad: async (actividadId: number): Promise<any> => {
-    const response = await apiClient.post(ACTIVIDADES_ENDPOINTS.ASIGNAR_ACTIVIDAD, {
+    const response = await apiClient.post(ACTIVITIES_ENDPOINTS.ASIGNAR_ACTIVIDAD, {
       actividad_id: actividadId,
       estado: 'pending',
     });
@@ -94,7 +94,7 @@ export const actividadesService = {
     data: ActividadUsuarioUpdate
   ): Promise<any> => {
     const response = await apiClient.put(
-      ACTIVIDADES_ENDPOINTS.ACTUALIZAR_ACTIVIDAD(id),
+      ACTIVITIES_ENDPOINTS.ACTUALIZAR_ACTIVIDAD(id),
       data
     );
     return response.data;

@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import styles from './MainContent.module.css';
 import TodayCard from '../TodayCard/TodayCard';
 import ProgramSection from '../ProgramSection/ProgramSection';
-import { programasService } from '@/services/api/programas';
+import { programsService } from '@/services/api/programs';
 import type { Programa } from '@/types/api';
 
 interface Activity {
@@ -37,7 +37,7 @@ const MainContent: React.FC<MainContentProps> = ({
     const fetchProgramas = async () => {
       try {
         setIsLoading(true);
-        const programasData = await programasService.getProgramas({ soloActivos: true });
+        const programasData = await programsService.getPrograms({ onlyActive: true });
         setProgramas(programasData);
       } catch (err) {
         console.error('Error al cargar programas:', err);

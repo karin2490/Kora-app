@@ -62,7 +62,7 @@ const UtilitySidebar: React.FC<UtilitySidebarProps> = ({ className }) => {
     if (item.action === 'dashboard' && user?.rol === 'student') {
       router.push('/dashboard');
     } else if (item.action === 'materias') {
-      router.push('/materias');
+      router.push('/subjects');
     } else {
       console.log(`Clicked on ${item.label}`);
     }

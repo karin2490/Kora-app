@@ -106,7 +106,7 @@ export default function DashboardPage() {
                 <span style={{ fontSize: '1.125rem', color: '#374151' }}>Primeras notas: Aa</span>
               </div>
               <button 
-                onClick={() => router.push('/actividad')}
+                onClick={() => router.push('/activity')}
                 style={{
                   backgroundColor: '#d946ef', color: 'white', border: 'none',
                   padding: '0.5rem 1.5rem', borderRadius: '20px',
@@ -179,7 +179,7 @@ export default function DashboardPage() {
               ].map(programa => (
                 <div 
                   key={programa.id}
-                  onClick={programa.clickeable ? () => router.push('/actividad') : undefined}
+                  onClick={programa.clickeable ? () => router.push('/activity') : undefined}
                   style={{
                     background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
                     borderRadius: '12px', 
@@ -231,7 +231,7 @@ export default function DashboardPage() {
               ].map(programa => (
                 <div 
                   key={programa.id}
-                  onClick={programa.clickeable ? () => router.push('/actividad') : undefined}
+                  onClick={programa.clickeable ? () => router.push('/activity') : undefined}
                   style={{
                     background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
                     borderRadius: '12px', 
@@ -284,7 +284,7 @@ export default function DashboardPage() {
             👧
           </button>
           <button 
-            onClick={() => router.push('/materias')}
+            onClick={() => router.push('/subjects')}
             style={{
               width: '50px', height: '50px', border: 'none',
               backgroundColor: 'rgba(255,255,255,0.7)', borderRadius: '12px',

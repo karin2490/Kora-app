@@ -1,10 +1,10 @@
-import Materias from '@/features/materias/components/index';
+import Programs from '@/features/programs/components/index';
 import ProtectedRoute from '@/shared/components/ProtectedRoute';
 
-export default function MateriasPage() {
+export default function ProgramsPage() {
   return (
     <ProtectedRoute allowedRoles={['student']}>
-      <Materias />
+      <Programs />
     </ProtectedRoute>
   );
 }
