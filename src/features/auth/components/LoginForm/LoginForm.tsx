@@ -3,58 +3,37 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useAuth } from '@/shared/contexts/AuthContext';
-import RoleSelector from '../RoleSelector/RoleSelector';
 import InputField from '../../../../shared/ui/InputField/InputField';
 import Button from '../../../../shared/ui/Button/Button';
 import FormCard from '../../../../shared/ui/FormCard/FormCard';
 import ActionLink from '../../../../shared/ui/ActionLink/ActionLink';
 import styles from './LoginForm.module.css';
 
-type UserRole = 'student' | 'teacher';
-
 interface LoginFormProps {
-  onLogin?: (credentials: { username: string; password: string; role: UserRole }) => void;
+  onLogin?: () => void;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
-  const [selectedRole, setSelectedRole] = useState<UserRole>('student');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
     setError('');
 
     try {
-      // Simular autenticación
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Validar credenciales según el rol
-      const isValidStudent = selectedRole === 'student' && 
-                            username === 'alumno1' && 
-                            password === 'Kora2024*';
-      
-      const isValidTeacher = selectedRole === 'teacher' && 
-                             username === 'maestro1' && 
-                             password === 'Kora2024*';
-      
-      if (isValidStudent || isValidTeacher) {
-        // Login exitoso
-        login(username, password, selectedRole);
-      } else {
-        // Credenciales incorrectas
-        setError('Usuario o contraseña incorrectos');
+      // Llamar al login con la API real
+      await login({ username, password });
+
+      // Callback opcional
+      if (onLogin) {
+        onLogin();
       }
-      
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
-      setError('Error al iniciar sesión');
-    } finally {
-      setIsLoading(false);
+      setError(error.message || 'Error al iniciar sesión');
     }
   };
 
@@ -66,21 +45,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
     <div className={styles.loginContainer}>
       <div className={styles.content}>
         <FormCard maxWidth="md">
-          <form 
-            onSubmit={handleSubmit} 
+          <form
+            onSubmit={handleSubmit}
             className={clsx(styles.form, { [styles.loading]: isLoading })}
           >
-            {/* Selector de Rol */}
-            <div className={styles.fieldGroup}>
-              <label className={styles.label}>
-                Selecciona tu rol:
-              </label>
-              <RoleSelector
-                selectedRole={selectedRole}
-                onRoleChange={setSelectedRole}
-              />
-            </div>
-
             {/* Campo Usuario */}
             <InputField
               type="text"
@@ -105,9 +73,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
 
             {/* Mensaje de Error */}
             {error && (
-              <div style={{ 
-                color: '#ef4444', 
-                fontSize: '0.875rem', 
+              <div style={{
+                color: '#ef4444',
+                fontSize: '0.875rem',
                 textAlign: 'center',
                 marginTop: '0.5rem'
               }}>

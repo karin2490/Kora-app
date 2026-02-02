@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { useAuth } from '@/shared/contexts/AuthContext';
 import styles from './ProfileCard.module.css';
 
 interface ProfileCardProps {
@@ -10,6 +11,7 @@ interface ProfileCardProps {
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ className }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const { user } = useAuth();
 
   const handlePasswordChange = () => {
     console.log('Cambiar contraseña');
@@ -18,26 +20,30 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ className }) => {
   return (
     <div className={clsx(styles.profileCard, className)}>
       <h2 className={styles.cardTitle}>Mi Perfil</h2>
-      
+
       <div className={styles.profileInfo}>
         <div className={styles.infoRow}>
-          <span className={styles.label}>Alias</span>
-          <span className={styles.value}>Priscilita</span>
+          <span className={styles.label}>Usuario</span>
+          <span className={styles.value}>{user?.username || 'N/A'}</span>
         </div>
-        
+
         <div className={styles.infoRow}>
           <span className={styles.label}>Correo</span>
-          <span className={styles.value}>Priscilita123@gmail.com</span>
+          <span className={styles.value}>{user?.email || 'N/A'}</span>
         </div>
-        
+
         <div className={styles.infoRow}>
-          <span className={styles.label}>Fecha de nacimiento</span>
-          <span className={styles.value}>10 de agosto 2015</span>
+          <span className={styles.label}>Nombre</span>
+          <span className={styles.value}>
+            {user?.nombre && user?.apellido
+              ? `${user.nombre} ${user.apellido}`
+              : user?.nombre || 'N/A'}
+          </span>
         </div>
-        
+
         <div className={styles.infoRow}>
-          <span className={styles.label}>Grado</span>
-          <span className={styles.value}>4° de primaria</span>
+          <span className={styles.label}>Rol</span>
+          <span className={styles.value}>{user?.rol || 'N/A'}</span>
         </div>
       </div>
       

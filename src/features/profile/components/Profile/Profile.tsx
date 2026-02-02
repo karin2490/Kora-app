@@ -23,37 +23,26 @@ function Profile({ className }: ProfileProps) {
         <header className={styles.profileHeader}>
           <div className={styles.avatarSection}>
             <div className={styles.avatarLarge}>
-              {user?.role === 'teacher' ? '👨‍🏫' : '👧'}
+              {user?.rol?.toLowerCase().includes('maestro') || user?.rol?.toLowerCase().includes('profesor') ? '👨‍🏫' : '👧'}
             </div>
             <div className={styles.avatarName}>
-              {user?.role === 'teacher' ? user.username : 'Priscilita'}
+              {user?.nombre || user?.username}
             </div>
             <button className={styles.editButton}>
               Editar
             </button>
           </div>
-          
+
           <div className={styles.userInfo}>
             <h1 className={styles.profileName}>
-              {user?.role === 'teacher' ? 'Perfil del Maestro' : 'Priscila Sánchez Mora'}
+              {user?.nombre && user?.apellido
+                ? `${user.nombre} ${user.apellido}`
+                : user?.username || 'Usuario'}
             </h1>
             <div className={styles.profileDetails}>
-              {user?.role === 'student' && (
-                <>
-                  <span>9 años</span>
-                  <span className={styles.separator}>•</span>
-                  <span>4° Grado</span>
-                  <span className={styles.separator}>•</span>
-                  <span>Tutor: Rodolfo</span>
-                </>
-              )}
-              {user?.role === 'teacher' && (
-                <>
-                  <span>Maestro</span>
-                  <span className={styles.separator}>•</span>
-                  <span>Kora App</span>
-                </>
-              )}
+              <span>{user?.rol || 'Usuario'}</span>
+              <span className={styles.separator}>•</span>
+              <span>{user?.email || 'Sin email'}</span>
             </div>
           </div>
           

@@ -59,7 +59,7 @@ const UtilitySidebar: React.FC<UtilitySidebarProps> = ({ className }) => {
   ];
 
   const handleItemClick = (item: UtilityItem) => {
-    if (item.action === 'dashboard' && user?.role === 'student') {
+    if (item.action === 'dashboard' && user?.rol === 'student') {
       router.push('/dashboard');
     } else if (item.action === 'materias') {
       router.push('/materias');
@@ -73,7 +73,7 @@ const UtilitySidebar: React.FC<UtilitySidebarProps> = ({ className }) => {
       <div className={styles.utilityList}>
         {utilityItems.map((item) => {
           // Solo mostrar el botón de Dashboard si es estudiante
-          if (item.action === 'dashboard' && user?.role !== 'student') {
+          if (item.action === 'dashboard' && user?.rol !== 'student') {
             return null;
           }
           

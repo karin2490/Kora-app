@@ -1,21 +1,25 @@
-export type UserRole = "student" | "teacher";
+export type UserRole = "student" | "teacher" | "admin";
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
-  email?: string;
-  role: UserRole;
-  firstName: string;
-  lastName: string;
-  avatar?: string;
-  createdAt: Date;
-  updatedAt: Date;
+  email: string;
+  nombre: string | null;
+  apellido: string | null;
+  rol: UserRole;
+  activo?: boolean;
 }
 
 export interface LoginCredentials {
   username: string;
   password: string;
-  role: UserRole;
+}
+
+// Respuesta de la API al hacer login
+export interface LoginResponse {
+  access_token: string;
+  token_type: string;
+  usuario: User;
 }
 
 export interface AuthState {

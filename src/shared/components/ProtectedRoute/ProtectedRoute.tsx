@@ -6,7 +6,7 @@ import { useAuth } from '@/shared/contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles?: ('student' | 'teacher')[];
+  allowedRoles?: ('student' | 'teacher' | 'admin')[];
 }
 
 export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
@@ -26,12 +26,12 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
       return;
     }
 
-    // Si hay roles permitidos y el usuario no tiene el rol correcto
-    if (allowedRoles && user?.role && !allowedRoles.includes(user.role)) {
-      // Redirigir según el rol
-      if (user.role === 'teacher') {
+    // If there are allowed roles and the user doesn't have the correct role
+    if (allowedRoles && user?.rol && !allowedRoles.includes(user.rol)) {
+      // Redirect based on role
+      if (user.rol === 'teacher') {
         router.push('/profile');
-      } else if (user.role === 'student') {
+      } else if (user.rol === 'student') {
         router.push('/dashboard');
       }
     }
@@ -57,7 +57,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
     return null;
   }
 
-  if (allowedRoles && user?.role && !allowedRoles.includes(user.role)) {
+  if (allowedRoles && user?.rol && !allowedRoles.includes(user.rol)) {
     return null;
   }
 

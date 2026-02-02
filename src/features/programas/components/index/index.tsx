@@ -1,56 +1,144 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useCallback, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './index.module.css';
 import HeaderSubject from '../HeaderSubject/HeaderSubject';
 import HeaderProgramSection from '../HeaderProgramSection/HeaderProgramSection';
 import UtilitySidebar from '../UtilitySidebar/UtilitySidebar';
 import type { Program, Subject, BreadcrumbItem } from '../../types';
+import { programasService } from '@/services/api/programas';
+import { materiasService } from '@/services/api/materias';
+import type { Programa as ProgramaAPI, Materia } from '@/types/api';
 
 interface ProgramasProps {
   className?: string;
 }
 
-const subjects: Subject[] = [
-  { id: 'materias', name: 'Materias', icon: '📚' },
-  { id: 'sinfonia', name: 'Sinfonía de la Lectoescritura', icon: '🎵', isSelected: true },
-  { id: 'matematicas', name: 'Matemáticas', icon: '🔢' },
-  { id: 'exploracion', name: 'Exploración del Mundo', icon: '🌍' },
-];
-
-const programs: Program[] = [
-  { id: 'preludio', title: 'Preludio:', subtitle: 'Melodía del Sonido', isActive: true, order: 0 },
-  { id: 'movimiento1', title: 'Movimiento I:', subtitle: 'Notas de la palabra', isActive: true, order: 1 },
-  { id: 'movimiento2', title: 'Movimiento II:', subtitle: 'El compás de la oración', isActive: true, order: 2 },
-  { id: 'movimiento3', title: 'Movimiento III:', subtitle: 'Ritmo y Trazo', isActive: true, order: 3 },
-  { id: 'movimiento4', title: 'Movimiento IV:', subtitle: 'Sinfónica del Pensamiento', isActive: true, order: 4 },
-  { id: 'movimiento5', title: 'Movimiento V:', subtitle: 'Entre Líneas', isActive: true, order: 5 },
-];
+// Iconos por defecto para cada materia
+const getIconForMateria = (nombre: string): string => {
+  const nombreLower = nombre.toLowerCase();
+  if (nombreLower.includes('lectoescritura') || nombreLower.includes('español') || nombreLower.includes('sinfonía')) {
+    return '🎵';
+  }
+  if (nombreLower.includes('matemática')) {
+    return '🔢';
+  }
+  if (nombreLower.includes('exploración') || nombreLower.includes('mundo')) {
+    return '🌍';
+  }
+  return '📚';
+};
 
 const Programas: React.FC<ProgramasProps> = ({ className }) => {
-  const [selectedSubject, setSelectedSubject] = useState<string>('sinfonia');
+  const [selectedSubject, setSelectedSubject] = useState<string>('');
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
+  const [programas, setProgramas] = useState<ProgramaAPI[]>([]);
+  const [materias, setMaterias] = useState<Materia[]>([]);
+  const [materiaActual, setMateriaActual] = useState<Materia | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const materiaId = searchParams.get('materia');
+
+  // Cargar materias y programas
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Cargar todas las materias para el header
+        const materiasData = await materiasService.getMaterias(true);
+        setMaterias(materiasData);
+
+        // Si hay una materia seleccionada, cargar sus programas
+        if (materiaId) {
+          const materiaIdNum = parseInt(materiaId);
+          const materiaEncontrada = materiasData.find(m => m.id === materiaIdNum);
+          setMateriaActual(materiaEncontrada || null);
+          setSelectedSubject(materiaId);
+
+          const programasData = await programasService.getProgramas({
+            materiaId: materiaIdNum,
+            soloActivos: true
+          });
+          setProgramas(programasData);
+        }
+      } catch (err: any) {
+        console.error('Error al cargar programas:', err);
+        setError('Error al cargar los programas');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [materiaId]);
+
+  // Convertir materias del backend a Subject
+  const subjects: Subject[] = [
+    { id: 'materias', name: 'Materias', icon: '📚' },
+    ...materias.map((materia) => ({
+      id: materia.id.toString(),
+      name: materia.nombre,
+      icon: getIconForMateria(materia.nombre),
+      isSelected: selectedSubject === materia.id.toString(),
+    })),
+  ];
+
+  // Convertir programas del backend a Program
+  const programs: Program[] = programas.map((programa) => ({
+    id: programa.id.toString(),
+    title: programa.nombre_comercial || programa.nombre,
+    subtitle: programa.descripcion_breve || '',
+    isActive: programa.activo,
+    order: programa.orden_secuencial || 0,
+  }));
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { id: 'sinfonia', label: 'Sinfonía', href: '/materias' },
+    { id: 'materias', label: materiaActual?.nombre || 'Materias', href: '/materias' },
     { id: 'programas', label: 'Programas', isActive: true },
   ];
 
   const handleSubjectChange = useCallback((subjectId: string) => {
     setSelectedSubject(subjectId);
-  }, []);
+    if (subjectId === 'materias') {
+      router.push('/materias');
+    } else {
+      router.push(`/programas?materia=${subjectId}`);
+    }
+  }, [router]);
 
   const handleProgramSelect = useCallback((programId: string) => {
     setSelectedProgram(programId);
     console.log('Selected program:', programId);
-    // Navegar a actividad cuando se selecciona "Preludio"
-    if (programId === 'preludio') {
-      router.push('/actividad');
-    }
+    // Navegar a actividad con el programa seleccionado
+    router.push(`/actividad?programa=${programId}`);
   }, [router]);
+
+  if (isLoading) {
+    return (
+      <div className={clsx(styles.programas, className)}>
+        <div className={styles.loadingContainer}>
+          <div className={styles.loadingSpinner}>Cargando programas...</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={clsx(styles.programas, className)}>
+        <div className={styles.errorContainer}>
+          <p className={styles.errorMessage}>{error}</p>
+          <button onClick={() => window.location.reload()}>Reintentar</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={clsx(styles.programas, className)}>
@@ -61,7 +149,7 @@ const Programas: React.FC<ProgramasProps> = ({ className }) => {
       />
       <HeaderProgramSection
         breadcrumbs={breadcrumbs}
-        title="Sinfonía de la lectoescritura"
+        title={materiaActual?.nombre || 'Programas'}
         programs={programs}
         selectedProgram={selectedProgram}
         onProgramSelect={handleProgramSelect}

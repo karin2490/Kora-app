@@ -17,19 +17,19 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ className }) => {
       <div className={styles.profileContainer}>
         <div className={styles.avatarContainer}>
           <div className={styles.avatar}>
-            {user?.role === 'teacher' ? '👨‍🏫' : '👧'}
+            {user?.rol === 'teacher' ? '👨‍🏫' : '👧'}
           </div>
           <div className={styles.avatarLabel}>
-            {user?.role === 'teacher' ? user.username : 'Priscila'}
+            {user?.rol === 'teacher' ? user.username : 'Priscila'}
           </div>
         </div>
         
         <div className={styles.profileInfo}>
           <h1 className={styles.profileName}>
-            {user?.role === 'teacher' ? 'Perfil del Maestro' : 'Priscila Sánchez Mora'}
+            {user?.rol === 'teacher' ? 'Perfil del Maestro' : 'Priscila Sánchez Mora'}
           </h1>
           <div className={styles.profileDetails}>
-            {user?.role === 'student' && (
+            {user?.rol === 'student' && (
               <>
                 <span className={styles.age}>9 años</span>
                 <span className={styles.separator}>•</span>
@@ -38,7 +38,7 @@ const HeaderSection: React.FC<HeaderSectionProps> = ({ className }) => {
                 <span className={styles.tutor}>Tutor: Rodolfo</span>
               </>
             )}
-            {user?.role === 'teacher' && (
+            {user?.rol === 'teacher' && (
               <>
                 <span className={styles.age}>Maestro</span>
                 <span className={styles.separator}>•</span>

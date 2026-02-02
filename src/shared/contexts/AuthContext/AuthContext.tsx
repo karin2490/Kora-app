@@ -1,70 +1,97 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import {
+  User,
+  LoginCredentials,
+  AuthContextType as IAuthContextType
+} from '@/features/auth/types/auth';
+import authService from '@/services/api/auth';
 
-type UserRole = 'student' | 'teacher' | null;
-
-interface User {
-  username: string;
-  role: UserRole;
-}
-
-interface AuthContextType {
-  user: User | null;
-  login: (username: string, password: string, role: UserRole) => void;
-  logout: () => void;
-  isAuthenticated: boolean;
-  isLoading: boolean;  // ⬅️ NUEVO
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);  // ⬅️ NUEVO
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  // Cargar usuario desde localStorage al iniciar
+  // Cargar usuario desde el token al iniciar
   useEffect(() => {
-    const savedUser = localStorage.getItem('kora-user');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        console.error('Error loading user:', error);
-        localStorage.removeItem('kora-user');
+    const initAuth = async () => {
+      const token = authService.getToken();
+
+      if (token) {
+        try {
+          // Verificar token obteniendo el usuario actual
+          const currentUser = await authService.getCurrentUser();
+          setUser(currentUser);
+        } catch (error) {
+          console.error('Error al cargar usuario:', error);
+          // Token inválido o expirado, limpiar
+          authService.logout();
+        }
       }
-    }
-    setIsLoading(false);  // ⬅️ NUEVO: Marcar como cargado
+
+      setIsLoading(false);
+    };
+
+    initAuth();
   }, []);
 
-  const login = (username: string, password: string, role: UserRole) => {
-    const newUser = { username, role };
-    setUser(newUser);
-    localStorage.setItem('kora-user', JSON.stringify(newUser));
-    
-    // Redirigir según el rol
-    if (role === 'student') {
-      router.push('/dashboard');
-    } else if (role === 'teacher') {
-      router.push('/profile');
+  const login = async (credentials: LoginCredentials) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      // Llamar al servicio de login
+      const response = await authService.login(credentials);
+
+      // Guardar usuario
+      setUser(response.usuario);
+      localStorage.setItem('kora-user', JSON.stringify(response.usuario));
+
+      // Debug: mostrar el rol recibido
+      console.log('Rol recibido del backend:', response.usuario.rol);
+
+      // Redirect based on role
+      if (response.usuario.rol === 'student') {
+        console.log('Redirecting to /dashboard');
+        router.push('/dashboard');
+      } else if (response.usuario.rol === 'teacher') {
+        console.log('Redirecting to /profile');
+        router.push('/profile');
+      }
+    } catch (err: any) {
+      console.error('Error en login:', err);
+      const errorMessage = err.response?.data?.detail || 'Error al iniciar sesión';
+      setError(errorMessage);
+      throw new Error(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const logout = () => {
+    authService.logout();
     setUser(null);
-    localStorage.removeItem('kora-user');
     router.push('/login');
   };
 
+  const clearError = () => {
+    setError(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ 
-      user, 
-      login, 
-      logout, 
+    <AuthContext.Provider value={{
+      user,
+      login,
+      logout,
       isAuthenticated: !!user,
-      isLoading  // ⬅️ NUEVO
+      isLoading,
+      error,
+      clearError
     }}>
       {children}
     </AuthContext.Provider>
