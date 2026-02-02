@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import Sidebar from '../Sidebar/Sidebar';
 import MainContent from '../MainContent/MainContent';
 import RightPanel from '../RightPanel/RightPanel';
-import { actividadesService } from '@/services/api/actividades';
+import { activitiesService } from '@/services/api/activities';
 import { useAuth } from '@/shared/contexts/AuthContext';
 import type { ActividadUsuario } from '@/types/api';
 
@@ -42,7 +42,7 @@ const Dashboard: React.FC<DashboardProps> = ({ className }) => {
       try {
         setIsLoading(true);
         // Obtener las actividades de hoy del usuario autenticado
-        const actividadesUsuario = await actividadesService.getActividadesHoy();
+        const actividadesUsuario = await activitiesService.getActividadesHoy();
         const actividadesHoy = actividadesUsuario.map(convertToActivity);
         setActivities(actividadesHoy);
       } catch (err) {

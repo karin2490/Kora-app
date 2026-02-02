@@ -10,7 +10,7 @@ import MainHeader from '../MainHeader/MainHeader';
 import SubjectContainer from '../SubjectContainer/SubjectContainer';
 import UtilitySidebar from '../UtilitySidebar/UtilitySidebar';
 import type { Subject, NavigationSubject } from '../../types';
-import { materiasService } from '@/services/api/materias';
+import { subjectsService } from '@/services/api/subjects';
 import type { Materia } from '@/types/api';
 
 interface MateriasProps {
@@ -46,7 +46,7 @@ const Materias: React.FC<MateriasProps> = ({ className }) => {
       try {
         setIsLoading(true);
         setError(null);
-        const data = await materiasService.getMaterias(true);
+        const data = await subjectsService.getSubjects(true);
         setMaterias(data);
       } catch (err: any) {
         console.error('Error al cargar materias:', err);

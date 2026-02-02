@@ -8,8 +8,8 @@ import HeaderSubject from '../HeaderSubject/HeaderSubject';
 import HeaderProgramSection from '../HeaderProgramSection/HeaderProgramSection';
 import UtilitySidebar from '../UtilitySidebar/UtilitySidebar';
 import type { Program, Subject, BreadcrumbItem } from '../../types';
-import { programasService } from '@/services/api/programas';
-import { materiasService } from '@/services/api/materias';
+import { programsService } from '@/services/api/programs';
+import { subjectsService } from '@/services/api/subjects';
 import type { Programa as ProgramaAPI, Materia } from '@/types/api';
 
 interface ProgramasProps {
@@ -51,7 +51,7 @@ const Programas: React.FC<ProgramasProps> = ({ className }) => {
         setError(null);
 
         // Cargar todas las materias para el header
-        const materiasData = await materiasService.getMaterias(true);
+        const materiasData = await subjectsService.getSubjects(true);
         setMaterias(materiasData);
 
         // Si hay una materia seleccionada, cargar sus programas
@@ -61,9 +61,9 @@ const Programas: React.FC<ProgramasProps> = ({ className }) => {
           setMateriaActual(materiaEncontrada || null);
           setSelectedSubject(materiaId);
 
-          const programasData = await programasService.getProgramas({
-            materiaId: materiaIdNum,
-            soloActivos: true
+          const programasData = await programsService.getPrograms({
+            subjectId: materiaIdNum,
+            onlyActive: true
           });
           setProgramas(programasData);
         }
@@ -99,14 +99,14 @@ const Programas: React.FC<ProgramasProps> = ({ className }) => {
   }));
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { id: 'materias', label: materiaActual?.nombre || 'Materias', href: '/materias' },
+    { id: 'materias', label: materiaActual?.nombre || 'Materias', href: '/subjects' },
     { id: 'programas', label: 'Programas', isActive: true },
   ];
 
   const handleSubjectChange = useCallback((subjectId: string) => {
     setSelectedSubject(subjectId);
     if (subjectId === 'materias') {
-      router.push('/materias');
+      router.push('/subjects');
     } else {
       router.push(`/programas?materia=${subjectId}`);
     }

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import styles from './ProgramSection.module.css';
 import ProgramCard from '../ProgramCard/ProgramCard';
-import { programasService } from '@/services/api/programas';
+import { programsService } from '@/services/api/programs';
 import type { Programa } from '@/types/api';
 
 interface ProgramSectionProps {
@@ -37,7 +37,7 @@ const ProgramSection: React.FC<ProgramSectionProps> = ({ className }) => {
       try {
         setIsLoading(true);
         // Obtener todos los programas activos
-        const programasData = await programasService.getProgramas({ soloActivos: true });
+        const programasData = await programsService.getPrograms({ onlyActive: true });
         setProgramas(programasData);
       } catch (err) {
         console.error('Error al cargar programas:', err);
